@@ -1,15 +1,7 @@
-require('dotenv').config();
+import mongoose from 'mongoose';
 
-const mongoose = require('mongoose');
-
-async function initMongoConnection() {
-  const {
-    MONGODB_USER,
-    MONGODB_PASSWORD,
-    MONGODB_URL,
-    MONGODB_DB,
-  } = process.env;
-
+const initMongoConnection = async () => {
+  const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_DB } = process.env;
   const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_URL}/${MONGODB_DB}?retryWrites=true&w=majority`;
 
   try {
@@ -19,6 +11,6 @@ async function initMongoConnection() {
     console.error('Mongo connection error:', err);
     process.exit(1);
   }
-}
+};
 
-module.exports = initMongoConnection;
+export default initMongoConnection;

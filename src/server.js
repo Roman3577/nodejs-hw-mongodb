@@ -1,16 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const pino = require('pino-http')();
-const contactsController = require('./controllers/contacts');
+import express from 'express';
+import cors from 'cors';
+import pino from 'pino-http';
+import { getAll, getById } from './controllers/contacts.js';
 
-function setupServer() {
+const setupServer = () => {
   const app = express();
   app.use(cors());
   app.use(express.json());
-  app.use(pino);
+  app.use(pino());
 
-  app.get('/contacts', contactsController.getAll);
-  app.get('/contacts/:contactId', contactsController.getById);
+  app.get('/contacts', getAll);
+  app.get('/contacts/:contactId', getById);
 
   app.use((req, res) => {
     res.status(404).json({ message: 'Not found' });
@@ -22,6 +22,6 @@ function setupServer() {
   });
 
   return app;
-}
+};
 
-module.exports = setupServer;
+export default setupServer;
