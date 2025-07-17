@@ -1,6 +1,6 @@
 import express from 'express';
-import * as ctrl from '../../controllers/contacts/index.js';
-import ctrlWrapper from '../../helpers/ctrlWrapper.js';
+import * as ctrl from '../controllers/contacts/index.js';
+import ctrlWrapper from '../helpers/ctrlWrapper.js';
 
 const router = express.Router();
 
