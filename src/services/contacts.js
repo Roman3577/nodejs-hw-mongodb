@@ -1,26 +1,7 @@
 import Contact from '../models/contact.js';
 
-class ContactsService {
-  async getAll() {
-    return Contact.find();
-  }
-
-  async getById(id) {
-    return Contact.findById(id);
-  }
-
-  async create(data) {
-    return Contact.create(data);
-  }
-
-  async update(id, data) {
-    return Contact.findByIdAndUpdate(id, data, { new: true });
-  }
-
-  async delete(id) {
-    const result = await Contact.findByIdAndDelete(id);
-    return result !== null;
-  }
-}
-
-export default ContactsService;
+export const listContacts = async () => await Contact.find();
+export const getContactById = async (id) => await Contact.findById(id);
+export const addContact = async (data) => await Contact.create(data);
+export const updateContact = async (id, data) => await Contact.findByIdAndUpdate(id, data, { new: true });
+export const removeContact = async (id) => await Contact.findByIdAndDelete(id);
