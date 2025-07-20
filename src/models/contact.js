@@ -1,13 +1,26 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const contactSchema = new Schema(
+const contactSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String },
-    phone: { type: String },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );
 
-const Contact = model('Contact', contactSchema);
+const Contact = mongoose.model('Contact', contactSchema);
+
 export default Contact;
