@@ -14,7 +14,6 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 
-
 app.use('/contacts', contactsRouter);
 
 app.use(notFoundHandler);
