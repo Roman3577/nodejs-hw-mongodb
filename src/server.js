@@ -6,22 +6,19 @@ import contactsRouter from './routes/contacts.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 
-const setupServer = () => {
-  const app = express();
+const app = express();
 
-  app.use(morgan('dev'));
-  app.use(cors());
-  app.use(express.json());
+app.use(morgan('dev'));
+app.use(cors());
+app.use(express.json());
 
-  app.use('/api/contacts', contactsRouter);
+// ❗ правильний префікс — без "/api"
+app.use('/contacts', contactsRouter);
 
-  app.use(notFoundHandler);
-  app.use(errorHandler);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
-  const { PORT = 3000 } = process.env;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-};
-
-export default setupServer;
+const { PORT = 3000 } = process.env;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
