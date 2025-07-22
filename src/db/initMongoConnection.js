@@ -1,8 +1,17 @@
 import mongoose from 'mongoose';
 
+const {
+  MONGODB_USER,
+  MONGODB_PASSWORD,
+  MONGODB_URL,
+  MONGODB_DB,
+} = process.env;
+
+const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_URL}/${MONGODB_DB}?retryWrites=true&w=majority`;
+
 const initMongoConnection = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI, {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
