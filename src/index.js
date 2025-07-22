@@ -14,7 +14,7 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 
-app.use('/contacts', contactsRouter);
+app.use('/contacts', contactsRouter); // <== /api видалено
 
 app.use(notFoundHandler);
 app.use(errorHandler);

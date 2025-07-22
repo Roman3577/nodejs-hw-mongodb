@@ -1,32 +1,41 @@
-import * as contactsService from '../services/contacts.js';
+import Contact from '../models/contact.js';
 
-export const getAllContacts = async (req, res) => {
-  const contacts = await contactsService.listContacts();
-  res.json({ status: 'success', message: 'Contacts found', data: contacts });
+export const getAllContacts = async () => {
+  const data = await Contact.find();
+  return { status: 200, message: 'Contacts retrieved', data };
 };
 
-export const getContactById = async (req, res) => {
-  const { id } = req.params;
-  const contact = await contactsService.getContactById(id);
-  if (!contact) throw new Error('Contact not found');
-  res.json({ status: 'success', message: 'Contact found', data: contact });
+export const getContactById = async (id) => {
+  const data = await Contact.findById(id);
+  if (!data) {
+    const error = new Error('Contact not found');
+    error.status = 404;
+    throw error;
+  }
+  return { status: 200, message: 'Contact found', data };
 };
 
-export const addContact = async (req, res) => {
-  const contact = await contactsService.addContact(req.body);
-  res.status(201).json({ status: 'success', message: 'Contact added', data: contact });
+export const createContact = async (body) => {
+  const data = await Contact.create(body);
+  return { status: 201, message: 'Contact created', data };
 };
 
-export const updateContact = async (req, res) => {
-  const { id } = req.params;
-  const contact = await contactsService.updateContact(id, req.body);
-  if (!contact) throw new Error('Contact not found');
-  res.json({ status: 'success', message: 'Contact updated', data: contact });
+export const updateContact = async (id, body) => {
+  const data = await Contact.findByIdAndUpdate(id, body, { new: true });
+  if (!data) {
+    const error = new Error('Contact not found');
+    error.status = 404;
+    throw error;
+  }
+  return { status: 200, message: 'Contact updated', data };
 };
 
-export const deleteContact = async (req, res) => {
-  const { id } = req.params;
-  const contact = await contactsService.removeContact(id);
-  if (!contact) throw new Error('Contact not found');
-  res.json({ status: 'success', message: 'Contact deleted', data: contact });
+export const deleteContact = async (id) => {
+  const data = await Contact.findByIdAndDelete(id);
+  if (!data) {
+    const error = new Error('Contact not found');
+    error.status = 404;
+    throw error;
+  }
+  return { status: 200, message: 'Contact deleted', data };
 };

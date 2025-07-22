@@ -1,8 +1,8 @@
-const notFoundHandler = (req, res) => {
+const notFoundHandler = (req, res, next) => {
   res.status(404).json({
-    status: 'error',
+    status: 404,
     message: 'Route not found',
-    data: 'Route not found',
+    data: 'Not Found'
   });
 };
 
